@@ -8,12 +8,14 @@
 </head>
 <body>
 
-<h1>Test widget</h1>
+<h1>Form Table to contact Table</h1>
   <pre id="readout"></pre>  
 
   <script>
     grist.ready();
+	console.log("Script loaded");
     grist.onRecord(async function(record) {
+	    console.log("onRecord function called");
       const email = record.getCellValue('courriel'); // On récupère l'addresse mail remplie dans le formulaire
 
       // Verifie si l'adresse mail existe dans la Table COntacts
