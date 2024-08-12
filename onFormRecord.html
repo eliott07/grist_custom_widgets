@@ -20,21 +20,28 @@
 
       if (!existingContact) {
         // SI l'email n'existe pas dans la Base, on insère une nouvelle ligne dans la base Contacts et dans la base tache à faire
-        await contactTable.insertRecord({ Courriel: email,
-                                          Ministere_Operateur: record.getCellValue('Ministère')
-                                        });
-        await grist.docApi.insertRecord('Todo', {
+	
+	const nom = record.getCellValue('Nom');
+	const prenom = record.getCellValue('Prenom');
+	const minis = record.getCellValue('Ministere');
+	const dir = record.getCellValue('Direction');
+	const fonct = record.getCellValue('Fonction');
+	
+	
+
+        await contactTable.insertRecord({ Courriel: email, Ministere_Operateur: minis, Prenom: prenom, Nom: nom, Bureau: dir, Fonction: fonct});
+        //await grist.docApi.insertRecord('Todo', {
           // Add relevant fields from "form" record to "Todo"
-          Email: email,
+          //Email: email,
           // ... other fields you want to copy from "form"
-        });
+        //});
         document.getElementById('readout').innerHTML = `Email "${email}" added to contacts and a new Todo created.`;
       } else {
         // Email exists, only add to "Todo" table
-        await grist.docApi.insertRecord('Todo', {
-          Email: email,
+        //await grist.docApi.insertRecord('Todo', {
+          //Email: email,
           // ... other fields you want to copy from "form"
-        });
+        //});
         document.getElementById('readout').innerHTML = `Email "${email}" already exists. A new Todo created.`;
       }
     });
