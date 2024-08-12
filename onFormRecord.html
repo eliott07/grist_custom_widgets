@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>onRecord</title>
+  <script src="https://docs.getgrist.com/grist-plugin-api.js"></script>  
+
+</head>
+<body>
+  <pre id="readout"></pre>  
+
+  <script>
+    grist.ready();
+    grist.onRecord(async function(record) {
+      const email = record.getCellValue('courriel'); // On récupère l'addresse mail remplie dans le formulaire
+
+      // Verifie si l'adresse mail existe dans la Table COntacts
+      const contactTable = await grist.docApi.fetchTable('Contacts');
+      const existingContact = await contactTable.findRecord({ Courriel: email });
+
+      if (!existingContact) {
+        // SI l'email n'existe pas dans la Base, on insère une nouvelle ligne dans la base Contacts et dans la base tache à faire
+        await contactTable.insertRecord({ Courriel: email,
+                                          Ministere_Operateur: record.getCellValue('Ministère')
+                                        });
+        await grist.docApi.insertRecord('Todo', {
+          // Add relevant fields from "form" record to "Todo"
+          Email: email,
+          // ... other fields you want to copy from "form"
+        });
+        document.getElementById('readout').innerHTML = `Email "${email}" added to contacts and a new Todo created.`;
+      } else {
+        // Email exists, only add to "Todo" table
+        await grist.docApi.insertRecord('Todo', {
+          Email: email,
+          // ... other fields you want to copy from "form"
+        });
+        document.getElementById('readout').innerHTML = `Email "${email}" already exists. A new Todo created.`;
+      }
+    });
+  </script>
+</body>
+</html>
