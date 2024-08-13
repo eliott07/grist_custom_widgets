@@ -8,14 +8,27 @@
 </head>
 <body>
 
-<h1>Form Table to contact Table onFunction</h1>
+<h1>Form Table to contact Table onFunction2</h1>
   <pre id="readout"></pre>  
 
   <script>
     grist.ready();
 	console.log("Script loaded");
     grist.on('docUserAction', (event) => {
-	    console.log("onDocUserAction called function called");
+  	if (event.type === 'docUserAction') {
+    		const docActions = event.data.docActions;
+    		for (const action of docActions) {
+      			if (action[0] === 'AddRecord' && action[1] === 'Formulaire_de_contact_Etalab') {
+        			console.log('New record added to Formulaire_de_contact_Etalab');
+        // Access the new record data (action[3])
+        			const newRecordData = action[3];
+        			console.log('New record data:', newRecordData);
+        // You can access specific fields like Direction, Fonction, etc.
+        			console.log('Direction:', newRecordData.Direction);
+        			console.log('Fonction:', newRecordData.Fonction);
+      }
+    }
+  }
       /*const email = record.getCellValue('courriel'); // On récupère l'addresse mail remplie dans le formulaire
 
       // Verifie si l'adresse mail existe dans la Table COntacts
