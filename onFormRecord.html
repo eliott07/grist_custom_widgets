@@ -8,13 +8,13 @@
 </head>
 <body>
 
-<h1>Form Table to contact Table</h1>
+<h1>Form Table to contact Table simple</h1>
   <pre id="readout"></pre>  
 
   <script>
     grist.ready();
 	console.log("Script loaded");
-    grist.onNewRecord(async function(record) {
+    grist.onNewRecord(() => {
 	    console.log("onNewRecord function called");
       /*const email = record.getCellValue('courriel'); // On récupère l'addresse mail remplie dans le formulaire
 
