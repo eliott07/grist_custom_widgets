@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<h1>Form Table to contact Table on new reccord</h1>
+<h1>Form Table to contact Table</h1>
   <pre id="readout"></pre>  
 
   <script>
@@ -16,7 +16,7 @@
 	console.log("Script loaded");
     grist.onNewRecord(async function(record) {
 	    console.log("onNewRecord function called");
-      const email = record.getCellValue('courriel'); // On récupère l'addresse mail remplie dans le formulaire
+      /*const email = record.getCellValue('courriel'); // On récupère l'addresse mail remplie dans le formulaire
 
       // Verifie si l'adresse mail existe dans la Table COntacts
       const contactTable = await grist.docApi.fetchTable('Contacts');
@@ -48,6 +48,7 @@
         //});
         document.getElementById('readout').innerHTML = `Email "${email}" already exists. A new Todo created.`;
       }
+      */
     });
   </script>
 </body>
