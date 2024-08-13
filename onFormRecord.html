@@ -8,13 +8,13 @@
 </head>
 <body>
 
-<h1>Form Table to contact Table GristDoc.docUserAction</h1>
+<h1>Form Table to contact Table onFunction</h1>
   <pre id="readout"></pre>  
 
   <script>
     grist.ready();
 	console.log("Script loaded");
-    gristDoc.onDocUserAction(() => {
+    grist.on('docUserAction', (event) => {
 	    console.log("onDocUserAction called function called");
       /*const email = record.getCellValue('courriel'); // On récupère l'addresse mail remplie dans le formulaire
 
